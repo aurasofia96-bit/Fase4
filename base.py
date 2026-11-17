@@ -2,8 +2,8 @@
 from abc import ABC, abstractmethod
 class base(ABC):
     def __init__(self,id,estado):
-        self.id = id
-        self.estado = estado
+        self._id = id
+        self._estado = estado
         
     @abstractmethod
     def mostrar(self):

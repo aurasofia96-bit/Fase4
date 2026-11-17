@@ -23,11 +23,14 @@ class base(ABC):
     def get_estado(self):
         return self._estado
 
+    def set_texto(self, texto, tipo):
+        if not isinstance(texto, str) or not texto.strip():
+            registrar_error(f"Error al establecer el {tipo}: {texto}. Debe ser una cadena de texto y no puede estar vacía.")
+            raise ErrorDatosBase(f"El {tipo} debe ser una cadena de texto y no puede estar vacía.")
+        return texto
+
     def set_estado(self, estado):
-        if not isinstance(estado, str):
-            registrar_error(f"Error al establecer el estado: {estado}. Debe ser una cadena de texto.")
-            raise ErrorDatosBase("El estado debe ser una cadena de texto.")
-        self._estado = estado
+        self._estado = self.set_texto(estado, "estado")
 
     # --- MÉTODOS ABSTRACTOS QUE DEBEN IMPLEMENTAR LAS CLASES HIJAS ---
 

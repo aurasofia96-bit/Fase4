@@ -38,8 +38,8 @@ class base(ABC):
     def mostrar(self):
         pass
     @abstractmethod
-    def cambiar_estado(self,estado):
+    def get_estado(self):
         pass
     @abstractmethod
-    def mostrar_estado(self):
+    def set_estado(self,estado):
         pass

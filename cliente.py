@@ -20,6 +20,16 @@ class cliente(base):
     def mostrar(self):
         print(f"ID: {self._id}, Estado: {self._estado}, Nombre: {self.__nombre}, Apellido: {self.__apellido}, Celular: {self.__celular}, Correo: {self.__correo}")
 
+    def mostrar_estado(self):
+        print(f"Estado del cliente {self.__nombre} {self.__apellido}: {self._estado}")
+
+    def cambiar_estado(self):
+        if self._estado == "activo":
+            self.set_estado("inactivo")
+        else:
+            self.set_estado("activo")
+        registrar_evento(f"El estado del cliente ID {self._id} cambió exitosamente a: {self._estado}")
+
     def get_nombre(self):
         return self.__nombre
 

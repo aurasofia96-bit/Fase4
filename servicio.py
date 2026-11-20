@@ -174,7 +174,6 @@ class Alquiler_equipo (Servicio):
         finally:
             registrar_evento(f"Se intentó calcular el costo del servicio ID {self.get_id()} con cantidad {cantidad}, tiempo {tiempo}, tarifa {self.get_tarifa()} y descuento {descuento}.")  
 
-
 class Asesoria (Servicio):
     def __init__(self, id, estado, nombre, descripcion, tarifa=2000.0, duracion=1): #Duración en horas maximo 3 horas 
         super().__init__(id, estado, nombre, descripcion, tarifa)

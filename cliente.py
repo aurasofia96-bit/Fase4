@@ -1,8 +1,8 @@
-from base import base
+from base import Base
 from excepciones import ErrorDatosCliente
 from logs import registrar_evento, registrar_error
 
-class cliente(base):
+class Cliente(Base):
     def __init__(self,id,estado,nombre,apellido,celular, correo):
         super().__init__(id,estado)
         self.set_nombre(nombre)
@@ -11,24 +11,25 @@ class cliente(base):
         self.set_correo(correo)
 
     def set_estado(self, estado): # Se modifica para estados para clientes: activo, inactivo.
-        estado_minuscula = estado.lower()
-        if estado_minuscula not in ["activo", "inactivo"]:
+        estado = self.set_texto(estado, "estado")
+        estado = estado.lower()
+        if estado not in ["activo", "inactivo"]:
             registrar_error(f"Error al establecer el estado: {estado}. Debe ser 'activo' o 'inactivo'.")
             raise ErrorDatosCliente("El estado debe ser 'activo' o 'inactivo'.")
-        self._estado = estado_minuscula
+        super().set_estado(estado)
 
     def mostrar(self):
-        print(f"ID: {self._id}, Estado: {self._estado}, Nombre: {self.__nombre}, Apellido: {self.__apellido}, Celular: {self.__celular}, Correo: {self.__correo}")
+        print(f"ID: {self.get_id()}, Estado: {self.get_estado()}, Nombre: {self.get_nombre()}, Apellido: {self.get_apellido()}, Celular: {self.get_celular()}, Correo: {self.get_correo()}")
 
     def mostrar_estado(self):
-        print(f"Estado del cliente {self.__nombre} {self.__apellido}: {self._estado}")
+        print(f"Estado del cliente {self.get_nombre()} {self.get_apellido()}: {self.get_estado()}")
 
     def cambiar_estado(self):
-        if self._estado == "activo":
-            self.set_estado("inactivo")
+        if self.get_estado() == "activo":
+            super().set_estado("inactivo")
         else:
-            self.set_estado("activo")
-        registrar_evento(f"El estado del cliente ID {self._id} cambió exitosamente a: {self._estado}")
+            super().set_estado("activo")
+        registrar_evento(f"El estado del cliente ID {self.get_id()} cambió exitosamente a: {self.get_estado()}")
 
     def get_nombre(self):
         return self.__nombre
@@ -55,6 +56,7 @@ class cliente(base):
         return self.__correo
 
     def set_correo(self, correo):
+        correo = self.set_texto(correo, "correo")
         if "@" not in correo or "." not in correo:
             registrar_error(f"Error al establecer el correo: {correo}. Debe ser un correo electrónico válido.")
             raise ErrorDatosCliente("El correo debe ser un correo electrónico válido.")

@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from logs import registrar_evento, registrar_error
 from excepciones import ErrorDatosBase
 
-class base(ABC):
+class Base(ABC):
     def __init__(self,id,estado):
         # Usamos los setters desde la base para validar de una vez
         self.set_id(id)
@@ -12,16 +12,16 @@ class base(ABC):
     # --- MÉTODOS COMUNES HEREDADOS POR TODOS ---
 
     def get_id(self):
-        return self._id
+        return self.__id
 
     def set_id(self, id):
         if not isinstance(id, int) or id <= 0:
             registrar_error(f"Error al establecer el ID: {id}. Debe ser un número entero positivo.")
             raise ErrorDatosBase("El ID debe ser un número entero positivo.")
-        self._id = id
+        self.__id = id
 
     def get_estado(self):
-        return self._estado
+        return self.__estado
 
     def set_texto(self, texto, tipo):
         if not isinstance(texto, str) or not texto.strip():
@@ -30,7 +30,7 @@ class base(ABC):
         return texto
 
     def set_estado(self, estado):
-        self._estado = self.set_texto(estado, "estado")
+        self.__estado = self.set_texto(estado, "estado")
 
     # --- MÉTODOS ABSTRACTOS QUE DEBEN IMPLEMENTAR LAS CLASES HIJAS ---
 

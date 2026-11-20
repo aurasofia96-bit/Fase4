@@ -14,3 +14,7 @@ class ErrorDatosCliente(ExcepcionBase):
 class ErrorDatosServicio(ExcepcionBase):
     """Se lanza cuando los datos de un servicio no cumplen con las validaciones."""
     pass
+
+class ErrorDatosReserva(ExcepcionBase):
+    """Se lanza cuando los datos de una reserva no cumplen con las validaciones."""
+    pass
